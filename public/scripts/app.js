@@ -15,3 +15,7 @@ var app = angular.module('cfaViolations', [
         redirectTo: '/'
       });
   });
+
+app.run(function(Violation){
+  Violation
+})

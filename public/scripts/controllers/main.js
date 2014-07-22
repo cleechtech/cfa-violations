@@ -1,8 +1,12 @@
 'use strict';
 
-app.controller('MainCtrl', function ($scope, $http) {
-	$http.get('/api/violations').then(function(response){
-		$scope.violations = response.data
+app.controller('MainCtrl', function ($scope, $timeout) {
+	// convert values to dates
+	$timeout(function(){
+		angular.forEach($scope.categories, function(data, category){
+			data.earliest = new Date(data.earliest);
+			data.latest = new Date(data.latest)
+		})
 	})
 
 });
