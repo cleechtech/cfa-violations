@@ -1,11 +1,20 @@
+<div class='row'>
+	<ul class='col-md-2'>
+		<li ng-repeat='category in categories'>
+			<b>{{ category }}</b>
+		</li>
+	</ul>
+	
+	<div line-chart></div>
+</div>
 
-<ul>
-	<li ng-repeat='(category, meta) in categories'>
-		<b>{{ category }}</b>
-		<p>{{ meta.count }} violations</p>
-		<p>Earliest violation: {{ meta.earliest | date:'medium' }}</p>
-		<p>Latest violation: {{ meta.latest | date:'medium' }}</p>
-	</li>
-</ul>
+<!-- <pre>{{ violations | json }}</pre>
+ -->
 
-<pre>{{ violations | json }}</pre>
+<!-- <pre>{{ allViolations | json }}</pre> -->
+
+<pre>{{ categories | json }}</pre>
+
+<!-- <p>{{ meta.count }} violations</p>
+<p>Earliest violation: {{ meta.earliest | date:'medium' }}</p>
+<p>Latest violation: {{ meta.latest | date:'medium' }}</p> -->

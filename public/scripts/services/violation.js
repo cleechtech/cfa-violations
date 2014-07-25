@@ -1,43 +1,55 @@
 'use strict';
 
-app.factory('Violation', function($rootScope, $http){
-  // get all violations
-  $http.get('/api/violations').then(function(response){
-    var violations = response.data,
-      categories = {};
+app.factory('Violation', function($http, $q){
+  
+  return {
+    all: function(){
+      return $http.get('/api/violations');
+    },
+    categories: function(){
+      var dfd = $q.defer()
 
-    $rootScope.violations = violations;
+      $http.get('/api/violations').then(function(response){
+        var violations = response.data,
+          categories = {};
 
-    // extract categories
-    angular.forEach(violations, function(violation, index){
-      if (categories.hasOwnProperty(violation.violation_category)){
+        // extract categories and add metaData
+        angular.forEach(violations, function(violation, index){
+          if (categories.hasOwnProperty(violation.violation_category)){
 
-      	categories[violation.violation_category].count += 1;
-      	categories[violation.violation_category].dates.push(violation.violation_date);
-      	
-      	if (categories[violation.violation_category].earliest > violation.violation_date){
-      		// find earliest
-      		categories[violation.violation_category].earliest = violation.violation_date;
-      	}
+            categories[violation.violation_category].count += 1;
+            categories[violation.violation_category].dates.push(violation.violation_date);
+            
+            if (categories[violation.violation_category].earliest > violation.violation_date){
+              // find earliest
+              categories[violation.violation_category].earliest = violation.violation_date;
+            }
 
-      	if (categories[violation.violation_category].latest < violation.violation_date){
-      		// find latest
-      		categories[violation.violation_category].latest = violation.violation_date;
-      	}
-      	
+            if (categories[violation.violation_category].latest < violation.violation_date){
+              // find latest
+              categories[violation.violation_category].latest = violation.violation_date;
+            }
+            
+          
+          } else {
+            // add data about the category to category key....
+            categories[violation.violation_category] = { 
+              count: 1,
+              dates: [violation.violation_date],
+              earliest: violation.violation_date,
+              latest: violation.violation_date
+            }
+          }
+        })
       
-      } else {
-        categories[violation.violation_category] = { 
-        	count: 1,
-        	dates: [violation.violation_date],
-        	earliest: violation.violation_date,
-        	latest: violation.violation_date
-        }
-      }
-    })
+        dfd.resolve(categories)
+      })
+    return dfd.promise;
 
-    $rootScope.categories = categories;
-  })
+    },
+    getCategory: function(category){
 
+    }
+  }
 
 })
