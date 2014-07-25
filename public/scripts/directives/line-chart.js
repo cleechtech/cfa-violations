@@ -1,14 +1,20 @@
 'use strict';
 
 app.directive('lineChart', function(){
+	
 	return {
 		restrict: 'A',
-		link: function(scope, elem, attrs){
-			// pass data to this directive
-			// Morris.Line({
-			// 	element: elem.html()
+		scope: true,	// use child scope (prototypically inherits from parent)
+		link: function (scope, elem, attrs){
+			console.log(scope.value)	// id w/out whitespace
 
-			// })
+			// throws error
+			Morris.Line({
+				element: elem,
+				xkey: scope.value.dates
+			})
+
 		}
 	}
 })
+

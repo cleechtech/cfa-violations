@@ -7,10 +7,12 @@ app.controller('MainCtrl', function ($scope, Violation) {
 	})
 
 	Violation.categories().then(function(data){
-		$scope.categories = Object.keys(data);	// just category names
-
+		$scope.categories = data;	// just category names
 	})
 
+	$scope.stripWhitespace = function(str){
+		return str.replace(/[\s]/g, '')
+	}
 
 });
 
