@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('Violation', function($http, $q){
+app.service('Violation', function($http, $q){
   
   return {
     all: function(){
@@ -17,20 +17,8 @@ app.factory('Violation', function($http, $q){
         angular.forEach(violations, function(violation, index){
           if (categories.hasOwnProperty(violation.violation_category)){
 
-            categories[violation.violation_category].count += 1;
             categories[violation.violation_category].dates.push(violation.violation_date);
             
-            if (categories[violation.violation_category].earliest > violation.violation_date){
-              // find earliest
-              categories[violation.violation_category].earliest = violation.violation_date;
-            }
-
-            if (categories[violation.violation_category].latest < violation.violation_date){
-              // find latest
-              categories[violation.violation_category].latest = violation.violation_date;
-            }
-            
-          
           } else {
             // add data about the category to category key....
             categories[violation.violation_category] = { 
@@ -48,7 +36,7 @@ app.factory('Violation', function($http, $q){
 
     },
     getCategory: function(category){
-
+      return $http.get('/api/violations/' + category)
     }
   }
 

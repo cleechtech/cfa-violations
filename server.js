@@ -11,7 +11,7 @@ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development',
 	envConfig = require('./server/config/env')[env];
 
 // ROUTES
-require('./server/config/routes')(app, envConfig)
+require('./server/config/routes')(app)
 
 // Start server
 app.listen(envConfig.port, function(){

@@ -2,9 +2,8 @@ var violations = require('../controllers/violations');
 
 module.exports = function(app, envConfig){
 
-	// app.get('/api/violations', violations.readFromDisc(envConfig.rootPath));
-
-	app.get('/api/violations', violations.readFromSource)
+	app.get('/api/violations', violations.readFromDisc)
+	app.get('/api/violations/:category', violations.getCategory)
 
 	// everything else goes to index.html
 	app.get('/*', function(req, res) {

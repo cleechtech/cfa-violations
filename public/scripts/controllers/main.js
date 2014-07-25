@@ -10,8 +10,9 @@ app.controller('MainCtrl', function ($scope, Violation) {
 		$scope.categories = data;	// just category names
 	})
 
+	// utility formatting
 	$scope.stripWhitespace = function(str){
-		return str.replace(/[\s]/g, '')
+		return str.replace(/[\s]/g, '').toLowerCase()
 	}
 
 });
