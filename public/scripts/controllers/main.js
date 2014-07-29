@@ -2,18 +2,13 @@
 
 app.controller('MainCtrl', function ($scope, Violation) {
 
-	Violation.all().then(function(data){
-		$scope.allViolations = data
+	Violation.all().then(function(res){
+		$scope.allViolations = res.data
 	})
 
-	Violation.categories().then(function(data){
-		$scope.categories = data;	// just category names
+	Violation.categories().then(function(res){
+		$scope.categories = res.data
 	})
-
-	// utility formatting
-	$scope.stripWhitespace = function(str){
-		return str.replace(/[\s]/g, '').toLowerCase()
-	}
 
 });
 
@@ -24,3 +19,8 @@ app.controller('MainCtrl', function ($scope, Violation) {
 // 		data.latest = new Date(data.latest)
 // 	})
 // })
+
+// utility formatting
+// $scope.stripWhitespace = function(str){
+// 	return str.replace(/[\s]/g, '').toLowerCase()
+// }

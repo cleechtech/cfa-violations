@@ -1,69 +1,35 @@
-var fs = require('fs'),
-	csv = require('csv-parser'),
-	_ = require('lodash'),
-	env = process.env.NODE_ENV = process.env.NODE_ENV || 'development',
-	envConfig = require('../config/env')[env];
+var _ = require('lodash');
+var violations;
 
-// read from file sitting on our server
-var violations = [];
-fs.createReadStream(envConfig.rootPath + '/server/Violations-2012.csv')
-	.pipe(csv())
-	.on('data', function(violation){
-		violations.push(violation)
-	})
-	.on('end', function(){
-		
-	})
+// promise I'll get the data
+require('./getData').then(function(data){
+	violations = data
+}, function(err){
+	violations = err
+	console.error('aww snap we could not read the data..')
+})
 
 module.exports = {
-	
-	readFromDisc: function(req, res){
+		
+	all: function(req, res){
 		res.jsonp(violations)
 	},
 	getCategory: function(req, res){
-		var ofCategory = [],
-			reqCategory = req.params.category;
+		var category = req.params.category;
 
-		_(violations).forEach(function(violation){
-			// format to match to request
-			var category = violation.violation_category.replace(/[\s]/g, '').toLowerCase()
-
-			if(category === reqCategory){
-				ofCategory.push(violation)
-			}
-		})
-		res.jsonp(ofCategory)
+		var results = _.where(violations, { "violation_category" : category })
+		res.jsonp(results)
 	},
+	categories: function(req, res){
+		// get categories
+		var categories = _.map(violations, function(v){
+			return v.violation_category
+		})
+		// remove duplicates
+		categories = _.uniq(categories)
+		res.jsonp(categories)
+	}
 	
 };
 
-// get data directly from code for america (in case we wanted to)
-// ===========================================================
-// config/routes.js: app.get('/api/violations', violations.readFromSource)
-
-// var async = require('async'),
-// 	request = require('request'),
-// 	fileUrl = 'http://forever.codeforamerica.org/fellowship-2015-tech-interview/Violations-2012.csv';
-
-// readFromSource: function(req, res){
-// 	var parseCsv = function(cb){
-// 		var violations = [];
-// 		request.get(fileUrl)
-// 			.pipe(csv())
-// 			.on('data', function(violation){
-// 				violations.push(violation)
-// 			})
-// 			.on('end', function(){
-// 				cb(null, violations)
-// 			})
-// 	}
-
-// 	// run run run
-// 	async.waterfall([
-// 		parseCsv
-// 	], function(err, results){
-// 		if (err) return err;
-
-// 		res.jsonp(results)	// each csv line as array of js objects
-// 	})
-// }
+// _.groupBy

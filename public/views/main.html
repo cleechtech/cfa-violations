@@ -1,9 +1,9 @@
 <div class='row'>
 	<div class='col-md-2'>
-		<div ng-repeat='(category, value) in categories'>
+		<div ng-repeat='category in categories'>
 			<h3>{{ category }}</h3>
 
-			<div style='width:100px;height:100px;' id="{{ stripWhitespace(category) }}" line-chart></div>
+			<div></div>
 		</div>
 	</div>
 </div>
@@ -11,9 +11,8 @@
 <!-- <pre>{{ violations | json }}</pre>
  -->
 
-<!-- <pre>{{ allViolations | json }}</pre> -->
+<pre>{{ allViolations | json }}</pre>
 
-<pre>{{ categories | json }}</pre>
 
 <!-- <p>{{ meta.count }} violations</p>
 <p>Earliest violation: {{ meta.earliest | date:'medium' }}</p>

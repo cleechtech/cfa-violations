@@ -1,8 +1,9 @@
 var violations = require('../controllers/violations');
 
-module.exports = function(app, envConfig){
+module.exports = function(app){
 
-	app.get('/api/violations', violations.readFromDisc)
+	app.get('/api/violations', violations.all)
+	app.get('/api/violations/categories', violations.categories)
 	app.get('/api/violations/:category', violations.getCategory)
 
 	// everything else goes to index.html
