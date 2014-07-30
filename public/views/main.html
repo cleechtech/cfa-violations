@@ -1,19 +1,19 @@
 <div class='row'>
-	<div class='col-md-2'>
-		<div ng-repeat='category in categories'>
-			<h3>{{ category }}</h3>
-
-			<div></div>
-		</div>
+	
+	<div class='col-md-12'>
+		<!-- bar chart of # of violations in each category -->
+		<div bar-chart 
+			bar-data='categories' 
+			bar-x='violation_category' 
+			bar-y='["number_violations"]'></div>
 	</div>
 </div>
 
-<!-- <pre>{{ violations | json }}</pre>
- -->
-
-<pre>{{ allViolations | json }}</pre>
-
-
-<!-- <p>{{ meta.count }} violations</p>
-<p>Earliest violation: {{ meta.earliest | date:'medium' }}</p>
-<p>Latest violation: {{ meta.latest | date:'medium' }}</p> -->
+<div class='row'>
+	<div class='col-md-2'>
+		<div ng-repeat='c in categories'>
+			<b>{{ c.violation_category }}</b>
+			<span class='label label-default'>{{ c.number_violations }}</span>
+		</div>
+	</div>
+</div>

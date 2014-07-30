@@ -1,3 +1,4 @@
+
 var _ = require('lodash');
 var violations;
 
@@ -21,15 +22,18 @@ module.exports = {
 		res.jsonp(results)
 	},
 	categories: function(req, res){
-		// get categories
-		var categories = _.map(violations, function(v){
+		// { category_name: [ { violation }, { violation } ] }
+		var grouped = _.groupBy(violations, function(v){
 			return v.violation_category
 		})
-		// remove duplicates
-		categories = _.uniq(categories)
+		
+		var categories = _.map(grouped, function(arr, name){
+			return {
+				violation_category: name,
+				number_violations: arr.length
+			}
+		})
+
 		res.jsonp(categories)
 	}
-	
-};
-
-// _.groupBy
+}

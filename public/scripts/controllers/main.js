@@ -10,17 +10,4 @@ app.controller('MainCtrl', function ($scope, Violation) {
 		$scope.categories = res.data
 	})
 
-});
-
-// convert values to dates
-// $timeout(function(){
-// 	angular.forEach($rootScope.categories, function(data, category){
-// 		data.earliest = new Date(data.earliest);
-// 		data.latest = new Date(data.latest)
-// 	})
-// })
-
-// utility formatting
-// $scope.stripWhitespace = function(str){
-// 	return str.replace(/[\s]/g, '').toLowerCase()
-// }
+})
