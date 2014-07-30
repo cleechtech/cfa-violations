@@ -10,4 +10,14 @@ app.controller('MainCtrl', function ($scope, Violation) {
 		$scope.categories = res.data
 	})
 
+	Violation.groupedByMonth().then(function(res){
+		$scope.groupedByMonth = res.data
+	})
+
+	$scope.showCategory = function(category){
+		Violation.getCategory(category).then(function(data){
+			$scope.current = data.data
+		})
+	}
+
 })

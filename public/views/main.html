@@ -1,7 +1,50 @@
+<h2 class='text-center'>2012 Violation Data</h2>
+
+<!-- BREAKDOWN -->
 <div class='row'>
-	
-	<div class='col-md-12'>
+	<div class='col-md-3'>
+		<b>Violation categories</b>
+		<div ng-repeat='c in categories'>
+			<span ng-click='showCategory(c.violation_category)'>
+				{{ c.violation_category }}
+			</span>
+			<span class='label label-default'>{{ c.number_violations }}</span>
+		</div>
+	</div>
+
+	<div class='col-md-7'>
 		<!-- bar chart of # of violations in each category -->
+<!-- 		<div line-chart 
+			line-data='' 
+			line-xkey='violation_category' 
+			line-ykeys='["number_violations"]'
+			line-labels="['date', 'inspection id']"></div> -->
+		<pre>{{ current | json }}</pre>
+	</div>
+</div>
+
+<br>
+<br>
+
+<!-- LINE CHART -->
+<div class='row'>
+	<h3 class='text-center'># of Violations by Time</h3>
+	<div class='col-md-offset-1 col-md-10'>
+		<div line-chart 
+			line-data='groupedByMonth' 
+			line-xkey='month' 
+			line-ykeys='["total"]'
+			line-labels='["Total violations"]'></div>
+	</div>
+</div>
+
+<br>
+<br>
+
+<!-- BAR CHART -->
+<div class='row'>
+	<h3 class='text-center'># of Violations by Category</h3>
+	<div class='col-md-12'>
 		<div bar-chart 
 			bar-data='categories' 
 			bar-x='violation_category' 
@@ -9,11 +52,9 @@
 	</div>
 </div>
 
+<!-- LINE CHART -->
 <div class='row'>
-	<div class='col-md-2'>
-		<div ng-repeat='c in categories'>
-			<b>{{ c.violation_category }}</b>
-			<span class='label label-default'>{{ c.number_violations }}</span>
-		</div>
+	<div class='col-md-12'>
+		
 	</div>
 </div>

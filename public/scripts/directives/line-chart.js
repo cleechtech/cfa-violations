@@ -1,41 +1,30 @@
 'use strict';
 
-app.directive('lineChart', function(Violation){
+// show amount of violations over the course of the year
+app.directive('lineChart', function(){
 	
 	return {
 		restrict: 'A',
-		scope: true,	// use child scope (prototypically inherits from parent)
+		scope: {
+			lineData: '=',
+			lineXkey: '@',
+			lineYkeys: '@',
+			lineLabels: '@'
+		},
 		link: function (scope, elem, attrs){
+			scope.$watch('lineData', function(){
 
-			Violation.getCategory(attrs.id).then(function(data){
-				// all data that matches the category
-				var violations = data.data;
-				
-				console.log(violations)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-				new Morris.Bar({
-					element: elem,
-					data: violations,
-					xkey: 'violation_date',
-					ykey: 'inspection_id',
-					labels: ['date', 'inspection id']
-				})
-
+				if(scope.lineData){
+					console.log(scope.lineData)
+					
+					new Morris.Line({
+						element: elem,
+						data: scope.lineData,
+						xkey: scope.lineXkey,
+						ykeys: JSON.parse(scope.lineYkeys),
+						labels: JSON.parse(scope.lineLabels)
+					})
+				}
 			})
 		}
 	}

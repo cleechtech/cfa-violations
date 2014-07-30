@@ -11,6 +11,9 @@ app.service('Violation', function($http, $q){
     },
     getCategory: function(category){
       return $http.get('/api/violations/' + category)
+    },
+    groupedByMonth: function(){
+      return $http.get('/api/violations/byMonth')
     }
   }
 
