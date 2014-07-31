@@ -14,6 +14,9 @@ app.service('Violation', function($http, $q){
     },
     groupedByMonth: function(){
       return $http.get('/api/violations/byMonth')
+    },
+    percentages: function(){
+      return $http.get('/api/violations/percentages')
     }
   }
 

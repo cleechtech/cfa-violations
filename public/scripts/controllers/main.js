@@ -14,6 +14,10 @@ app.controller('MainCtrl', function ($scope, Violation) {
 		$scope.groupedByMonth = res.data
 	})
 
+	Violation.percentages().then(function(res){
+		$scope.percentages = res.data
+	})
+
 	$scope.showCategory = function(category){
 		Violation.getCategory(category).then(function(data){
 			$scope.current = data.data

@@ -14,9 +14,7 @@ app.directive('lineChart', function(){
 		link: function (scope, elem, attrs){
 			scope.$watch('lineData', function(){
 
-				if(scope.lineData){
-					console.log(scope.lineData)
-					
+				if(scope.lineData){					
 					new Morris.Line({
 						element: elem,
 						data: scope.lineData,

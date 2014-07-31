@@ -43,7 +43,7 @@
 
 <!-- BAR CHART -->
 <div class='row'>
-	<h3 class='text-center'># of Violations by Category</h3>
+	<h3 class='text-center'># of Violations by Category - Bar</h3>
 	<div class='col-md-12'>
 		<div bar-chart 
 			bar-data='categories' 
@@ -52,9 +52,13 @@
 	</div>
 </div>
 
-<!-- LINE CHART -->
+<!-- DONUT CHART -->
 <div class='row'>
+	<h3 class='text-center'># of Violations by Category - Donut</h3>
 	<div class='col-md-12'>
-		
+		<div donut-chart
+			donut-data='percentages'></div>
 	</div>
 </div>
+
+<pre>{{ percentages | json }}</pre>

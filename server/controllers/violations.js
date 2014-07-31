@@ -62,12 +62,32 @@ module.exports = {
 
 		res.jsonp(categories)
 	},
-	// getCategory: function(req, res){
-	// 	var category = req.params.category;
+	getCategory: function(req, res){
+		var category = req.params.category;
 
-	// 	// get all violations of a category
-	// 	var results = _.where(violations, { "violation_category" : category })
+		// get all violations of a category
+		var results = _.where(violations, { "violation_category" : category })
 
-	// 	res.jsonp(results)
-	// }
+		res.jsonp(results)
+	},
+	percentages: function(req, res){
+
+		var grouped = _.groupBy(violations, function(v){
+			return v.violation_category
+		})
+
+		var categories = _.keys(grouped)
+
+		var percentages = _.map(categories, function(c){
+
+
+			var category = {
+				label: c,
+				value: grouped[c].length
+			}
+			return category
+		})
+
+		res.jsonp(percentages)
+	}
 }
