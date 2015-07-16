@@ -1,0 +1,16 @@
+<table class="table table-striped">
+	<thead>
+	  <tr>
+	    <th>Name</th>
+	    <th>Population</th>
+	    <th>Housing Density</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr ng-repeat='tract in tracts'>
+	    <td>{{tract.name}}</td>
+	    <td>{{tract.population}}</td>
+	    <td>{{tract.housingDensity}}</td>
+	  </tr>
+	</tbody>
+</table>
