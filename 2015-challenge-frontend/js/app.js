@@ -1,6 +1,7 @@
 
 var app = angular.module('census-tracts', [
-	'ui.router'
+	'ui.router',
+	'smart-table'
 ]);
 
 app.config(function($stateProvider, $urlRouterProvider){
@@ -22,7 +23,7 @@ app.factory('Tracts', function($q){
 
 		var tracts = [];
 
-		// calculate the population and housing densities for each place 
+		// calculate the housing densities for each place 
 		_.forEach(data, function(place){
 
 			// add housing density (population per unit)
@@ -30,7 +31,7 @@ app.factory('Tracts', function($q){
 
 			var tract = {
 				name:place['Name'],
-				population: place['Population'],
+				population: parseInt(place['Population']),
 				housingDensity: housingDensity
 			};
 
@@ -42,25 +43,3 @@ app.factory('Tracts', function($q){
 
 	return dfd.promise;
 });
-
-// d3.tsv('tracts.tsv', function(data){
-
-// 	var tracts = [];
-
-// 	// calculate the population and housing densities for each place 
-// 	_.forEach(data, function(place){
-
-// 		// add housing density (population per unit)
-// 		var housingDensity = place['Population']/place['Housing Units'];
-
-// 		var tract = {
-// 			name:place['Name'],
-// 			population: place['Population'],
-// 			housingDensity: housingDensity
-// 		};
-
-// 		tracts.push(tract);
-// 	});
-
-// 	console.log(tracts);
-// });
